@@ -5,6 +5,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 mod tui_gen;
+mod gh_repo_status;
 
 struct TermStat {
     line_count: usize,
@@ -31,7 +32,6 @@ impl TermStat {
         }
     }
 }
-
 
 fn main() {
 
@@ -70,6 +70,10 @@ fn main() {
             termstat.line_check();
         }
     }
+
+    // check if latest version is running
+    gh_repo_status::check_version()
+        .expect("check_version error");
 }
 
 fn read_file_to_vector(file_path: &Path, vector: &mut Vec<String>) {
