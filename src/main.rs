@@ -7,37 +7,9 @@ use std::path::Path;
 mod tui_gen;
 mod gh_repo_status;
 
-struct TermStat {
-    line_count: usize,
-    height: usize,
-}
-
-impl Default for TermStat {
-    fn default() -> TermStat {
-        TermStat {
-            line_count: 0,
-            height: 0,
-        }
-    }
-}
-
-impl TermStat {
-    fn line_check(&mut self) {
-        self.line_count += 1;
-        if self.line_count > (self.height - 5) {
-            tui_gen::pause();
-            self.line_count = 0;
-            tui_gen::cls();
-            tui_gen::cmove(0, 0);
-        }
-    }
-}
-
 fn main() {
 
-    let (_width, height) = tui_gen::tsize();
-    let mut termstat = TermStat::default();
-    termstat.height = height;
+    let mut termstat = tui_gen::TermStat::default();
 
     tui_gen::cls();
     println!("viewlastlog: v{}\n", env!("CARGO_PKG_VERSION"));
