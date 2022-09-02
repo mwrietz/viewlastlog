@@ -16,9 +16,9 @@ use std::env;
 //
 */
 pub struct TermStat {
-    line_count: usize,
-    width: usize,
-    height: usize,
+    pub line_count: usize,
+    pub width: usize,
+    pub height: usize,
 }
 
 impl Default for TermStat {

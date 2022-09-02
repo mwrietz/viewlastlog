@@ -1,4 +1,4 @@
-//use colored::Colorize;
+use colored::Colorize;
 use glob::glob;
 use std::fs::File;
 use std::io::{self, BufRead};
@@ -12,7 +12,7 @@ fn main() {
     let mut termstat = tui_gen::TermStat::default();
 
     tui_gen::cls();
-    println!("viewlastlog: v{}\n", env!("CARGO_PKG_VERSION"));
+    println!("{}", format!("{} v{}\n", "viewlastlog:", env!("CARGO_PKG_VERSION")).blue());
     termstat.line_check();
 
     // get last filename in cwd (latest log file)
@@ -36,6 +36,10 @@ fn main() {
 
     // print lines containing filenames
     for line in &lines {
+        if termstat.line_count == 0 {
+            println!("{}", format!("{} v{}\n", "viewlastlog:", env!("CARGO_PKG_VERSION")).blue());
+            termstat.line_check();
+        }
         let l = line.clone();
         if !l.ends_with("/") && !l.starts_with(" ") {
             println!("{}", l);
