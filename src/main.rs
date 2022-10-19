@@ -36,7 +36,8 @@ fn main() {
 
     // print lines containing filenames
     for line in &lines {
-        if termstat.line_count == 0 {
+        let (_x, y) = tui_gen::tpos();
+        if y == 0 {
             println!("{}", format!("{} v{}\n", tui_gen::get_prog_name(), env!("CARGO_PKG_VERSION")).blue());
             termstat.line_check();
         }
